@@ -7,16 +7,21 @@ let comparePassword = (password, hash_password) => {
 }
 
 exports.register = (req, res) => {
-    const newUser = new UserModel(req.body);
-    newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
 
-    newUser.save((err, user) => {
+    let hash_password = bcrypt.hashSync(req.body.password, 10);
+
+    UserModel.create({
+        name : req.body.name,
+        email : req.body.email,
+        password : hash_password
+    }, (err, user) => {
         if(err) {
             return res.status(400).send({ message: err });
         } else {
             return res.json({ token: jwt.sign({ email: user.email, fullname: user.fullname, _id: user._id }, "SECRETKEY") })
         }
     })
+
 };
 
 exports.login = (req, res) => {
