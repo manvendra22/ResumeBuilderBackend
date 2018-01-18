@@ -1,5 +1,5 @@
 const express = require('express'),
-// path = require('path');
+// path = require('path'),
  favicon = require('serve-favicon'),
  logger = require('morgan'),
  cookieParser = require('cookie-parser'),
@@ -49,9 +49,8 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send("Error");
 });
 
 module.exports = app;

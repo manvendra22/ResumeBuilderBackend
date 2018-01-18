@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken'),
   UserModel = require('./../models/userModel');
 
 let comparePassword = (password, hash_password) => {
-    console.log("PASSWORD ", hash_password);
     return bcrypt.compareSync(password, hash_password)
 }
 
@@ -13,12 +12,9 @@ exports.register = (req, res) => {
 
     newUser.save((err, user) => {
         if(err) {
-            return res.status(400).send({
-                message: err
-            });
+            return res.status(400).send({ message: err });
         } else {
-            user.hash_password = undefined;
-            return res.json(user);
+            return res.json({ token: jwt.sign({ email: user.email, fullname: user.fullname, _id: user._id }, "SECRETKEY") })
         }
     })
 };
@@ -34,7 +30,7 @@ exports.login = (req, res) => {
             if(!comparePassword(req.body.password, user.hash_password)) {
                 res.status(401).json({message: "Authentication failed, Wrong password"})
             } else {
-                return res.json({ token: jwt.sign({ email: user.email, fullname: user.fullname, _id: user._id }, "NODERESTAPI") })
+                return res.json({ token: jwt.sign({ email: user.email, fullname: user.fullname, _id: user._id }, "SECRETKEY") })
             }
         }
     })
