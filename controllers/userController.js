@@ -49,3 +49,23 @@ exports.login_required = (req, res, next) => {
         return res.status(401).json({ message: 'Unauthorized user!' });
     }
 };
+
+exports.user_profile = (req, res, next) => {
+    // after token verification
+    const token = {};
+
+    UserModel.findOne({
+        email: token.email
+    }, (err, user) => {
+        if(err) throw err;
+        if(!user) {
+            res.status(401).json({message: "Authentication failed, User not found"})
+        } else if(user) {
+            if(!comparePassword(req.body.password, user.password)) {
+                res.status(401).json({message: "Authentication failed, Wrong password"})
+            } else {
+                return res.json({ user: user })
+            }
+        }
+    })
+}
