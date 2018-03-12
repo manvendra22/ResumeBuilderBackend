@@ -32,7 +32,7 @@ exports.login = (req, res) => {
         if(!user) {
             res.status(401).json({message: "Authentication failed, User not found"})
         } else if(user) {
-            if(!comparePassword(req.body.password, user.hash_password)) {
+            if(!comparePassword(req.body.password, user.password)) {
                 res.status(401).json({message: "Authentication failed, Wrong password"})
             } else {
                 return res.json({ token: jwt.sign({ email: user.email, fullname: user.fullname, _id: user._id }, "SECRETKEY") })

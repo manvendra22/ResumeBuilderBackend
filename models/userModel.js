@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
 const UserSchema = new Schema({
     name: String,
     email: String,
-    hash_password: String,
+    password: String,
     created: {
         type: Date,
         default: Date.now
