@@ -80,3 +80,19 @@ exports.update_user_data = (req, res, next) => {
         }
     })
 }
+
+exports.get_all_templates = (req, res, next) => {
+    // after token verification
+    const token = {}
+
+    UserModel.findOne({
+        email: token.email
+    }, (err, user) => {
+        if(err) throw err;
+        if(!user) {
+            res.status(401).json({message: "Authentication failed, User not found"})
+        } else {
+            // new template model in db
+        }
+    })
+}
