@@ -21,7 +21,6 @@ exports.register = (req, res) => {
             return res.json({ token: jwt.sign({ email: user.email, fullname: user.fullname, _id: user._id }, "SECRETKEY") })
         }
     })
-
 };
 
 exports.login = (req, res) => {
@@ -68,4 +67,4 @@ exports.user_profile = (req, res, next) => {
             }
         }
     })
-}
+};
