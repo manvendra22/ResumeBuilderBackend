@@ -1,12 +1,10 @@
-# Resume Builder
-
-## Backend for Resume Builder App
+# Backend for ResumeBuilder
 
 > A Node.js project
 
 ### Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
